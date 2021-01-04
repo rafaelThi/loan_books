@@ -31,10 +31,10 @@
 *Regras de Negócio*
 - Para buscar um livro, deve estar logado
 
-# Cadastro de Usuário e Dono do livro 
+# Cadastro de Usuário e Dono do livro
 **RF**
 *Requisitos Funcionais*
-- Usuário e dono do livro deve poder se cadstrar usando nome + sobrenome, email e senha.
+- Usuário e dono do livro deve se cadstrar usando nome, email e senha.
 
 **RNF**
 *Requisitos Não Funcionais*
@@ -42,7 +42,7 @@
 **RN**
 *Regras de Negócio*
 - Não pode haver dois ususarios com o mesmo email
-- Senha tem que possuir no minimo 6 letras 
+- Senha tem que possuir no minimo 6 letras
 
 # Solicitação de Empréstimo
 
