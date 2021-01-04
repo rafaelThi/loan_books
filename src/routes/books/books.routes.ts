@@ -1,7 +1,8 @@
+/* eslint-disable array-callback-return */
 import { Router } from 'express';
 import { uuid } from 'uuidv4';
 
-const bookOwnersRoutes = Router();
+const routerBooks = Router();
 
 interface IBooks {
   id: string;
@@ -12,7 +13,7 @@ interface IBooks {
 
 const books: any[] = [];
 
-bookOwnersRoutes.post('/register-book', (request, response) => {
+routerBooks.post('/register-book', (request, response) => {
   const { author, name, amount } = request.body;
   const book:IBooks = {
     id: uuid(), author, name, amount,
@@ -22,9 +23,9 @@ bookOwnersRoutes.post('/register-book', (request, response) => {
   return response.json(book);
 });
 
-bookOwnersRoutes.get('/list-all-books', (request, response) => response.json({ books }));
+routerBooks.get('/list-all-books', (request, response) => response.json({ books }));
 
-bookOwnersRoutes.get('/list-one-book', (request, response) => {
+routerBooks.get('/list-one-book', (request, response) => {
   const { name } = request.body;
   const matchBooks: any[] = [];
   const findBook = books.map((book) => {
@@ -39,4 +40,4 @@ bookOwnersRoutes.get('/list-one-book', (request, response) => {
   return response.status(400).json({ message: `Livro ${name} não encontrado` });
 });
 
-export default bookOwnersRoutes;
+export default routerBooks;

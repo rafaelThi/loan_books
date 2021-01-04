@@ -12,15 +12,19 @@ interface IUser {
 
 const users:any = [];
 
-routerUser.get('/list-all', (request, response) => response.json({ users }));
+routerUser.get('/list-all-users', (request, response) => response.json({ users }));
 
-routerUser.post('/create', (request, response) => {
+routerUser.post('/create-user', (request, response) => {
   const { fullName, email, senha } = request.body;
-  const user:IUser = {
-    id: uuid(), fullName, email, senha,
-  };
-  users.push(user);
-  return response.json({ user });
+  const findEmail = users.find((user:IUser) => user.email === email);
+  if (!findEmail) {
+    const user:IUser = {
+      id: uuid(), fullName, email, senha,
+    };
+    users.push(user);
+    return response.json({ user });
+  }
+  return response.status(400).json({ message: `Email:${email} já cadastrado` });
 });
 
 export default routerUser;
