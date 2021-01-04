@@ -1,19 +1,11 @@
 import { Router } from "express";
+import bookOwnersRoutes from "./book-owners/book-owners.routes";
+import routerUser from "./users/users.routes";
 
 const routes = Router()
 
-const user:any = []
+routes.use('/requisition-book', bookOwnersRoutes)
 
-routes.get('/', (request, response) => {
-  return response.json({user})
-})
-
-routes.post('/post', (request, response) => {
-  const { email, name } = request.body
-  user.push(email, name);
-
-  return response.json({email, name});
-})
-
+routes.use('/users', routerUser)
 
 export default routes;
