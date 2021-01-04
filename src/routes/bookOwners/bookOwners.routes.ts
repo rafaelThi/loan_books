@@ -10,9 +10,9 @@ interface IBooks {
   amount: number;
 }
 
-const books:any = [];
+const books: any[] = [];
 
-bookOwnersRoutes.post('/register', (request, response) => {
+bookOwnersRoutes.post('/register-book', (request, response) => {
   const { author, name, amount } = request.body;
   const book:IBooks = {
     id: uuid(), author, name, amount,
@@ -22,8 +22,15 @@ bookOwnersRoutes.post('/register', (request, response) => {
   return response.json(book);
 });
 
-bookOwnersRoutes.get('/list', (request, response) => response.json({ books }));
+bookOwnersRoutes.get('/list-all-books', (request, response) => response.json({ books }));
 
-bookOwnersRoutes.get('/list-one', (request, response) => response.json(books[2]));
+bookOwnersRoutes.get('/list-one-book/:name', (request, response) => {
+  const { name } = request.params;
+  const findBook = books.find((book) => book.name === name);
+  if (findBook) {
+    return response.status(400).json(findBook);
+  }
+  return response.status(400).json({ message: `Livro ${name} não encontrado` });
+});
 
 export default bookOwnersRoutes;
