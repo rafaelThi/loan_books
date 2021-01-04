@@ -25,7 +25,7 @@ routerBooks.post('/register-book', (request, response) => {
 
 routerBooks.get('/list-all-books', (request, response) => response.json({ books }));
 
-routerBooks.get('/list-one-book', (request, response) => {
+routerBooks.get('/list-one-book-name', (request, response) => {
   const { name } = request.body;
   const matchBooks: any[] = [];
   const findBook = books.map((book) => {
@@ -38,6 +38,21 @@ routerBooks.get('/list-one-book', (request, response) => {
     return response.status(200).json({ matchBooks });
   }
   return response.status(400).json({ message: `Livro ${name} não encontrado` });
+});
+
+routerBooks.get('/list-one-book-author', (request, response) => {
+  const { author } = request.body;
+  const matchBooks: any[] = [];
+  const findBook = books.map((book) => {
+    if (book.author === author) {
+      matchBooks.push(book);
+    }
+  });
+
+  if (findBook) {
+    return response.status(200).json({ matchBooks });
+  }
+  return response.status(400).json({ message: `Livro do ${author} não encontrado` });
 });
 
 export default routerBooks;
