@@ -3,7 +3,7 @@ import User from '../../models/User';
 
 const routerUser = Router();
 
-const users:any = [];
+const users:User[] = [];
 
 routerUser.get('/list-all-users', (request, response) => response.json({ users }));
 
