@@ -9,7 +9,12 @@ routerBooks.post('/register-book', (request, response) => {
   const {
     author, name, language, amount,
   } = request.body;
-  const book = booksRepository.createBook(author, name, language, amount);
+  const book = booksRepository.createBook({
+    author,
+    name,
+    language,
+    amount,
+  });
 
   return response.json(book);
 });

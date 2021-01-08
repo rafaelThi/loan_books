@@ -14,7 +14,11 @@ routerAdmin.post('/create-owners', (request, response) => {
 
   const findEmail = adminRepository.findByEmailAdmin(emailAdmin);
   if (!findEmail) {
-    const userAdmin = adminRepository.createAdmin(fullNameAdmin, emailAdmin, passwordAdmin);
+    const userAdmin = adminRepository.createAdmin({
+      fullNameAdmin,
+      emailAdmin,
+      passwordAdmin,
+    });
     return response.status(200).json({ userAdmin });
   }
   return response.status(400).json({ message: `Email:${emailAdmin} já cadastrado` });

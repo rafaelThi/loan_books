@@ -12,7 +12,11 @@ routerUser.post('/create-user', (request, response) => {
   const { fullName, email, password } = request.body;
   const findEmail = userRepository.findByEmailUser(email);
   if (!findEmail) {
-    const user = userRepository.createUser(fullName, email, password);
+    const user = userRepository.createUser({
+      fullName,
+      email,
+      password,
+    });
     return response.json({ user });
   }
   return response.status(400).json({ message: `Email:${email} já cadastrado` });

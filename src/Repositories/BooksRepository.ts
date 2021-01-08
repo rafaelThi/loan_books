@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Book from '../models/Book';
+import IBook from '../dtos/IBook';
 
 class BooksRepository {
   private books: Book[];
@@ -7,8 +10,15 @@ class BooksRepository {
     this.books = [];
   }
 
-  public createBook(author: string, name: string, language: string, amount: number):Book {
-    const book = new Book(name, author, language, amount);
+  public createBook({
+    author, name, language, amount,
+  }: IBook):Book {
+    const book = new Book({
+      name,
+      author,
+      language,
+      amount,
+    });
     this.books.push(book);
     return book;
   }

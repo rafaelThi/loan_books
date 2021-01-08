@@ -1,5 +1,11 @@
 import Admin from '../models/Admin';
 
+interface IAdmin {
+  fullNameAdmin: string;
+  emailAdmin: string;
+  passwordAdmin: string;
+}
+
 class AdminRepository {
   private adminUser: Admin[];
 
@@ -16,7 +22,7 @@ class AdminRepository {
     return findEmail;
   }
 
-  public createAdmin(fullNameAdmin: string, emailAdmin: string, passwordAdmin: string):Admin {
+  public createAdmin({ fullNameAdmin, emailAdmin, passwordAdmin }: IAdmin):Admin {
     const admin:Admin = new Admin(fullNameAdmin, emailAdmin, passwordAdmin);
     this.adminUser.push(admin);
     return admin;

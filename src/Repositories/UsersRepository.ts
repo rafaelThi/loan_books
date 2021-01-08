@@ -1,5 +1,11 @@
 import User from '../models/User';
 
+interface IUser {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
 class UserRepository {
   private users:User[];
 
@@ -16,7 +22,7 @@ class UserRepository {
     return findEmail;
   }
 
-  public createUser(fullName: string, email: string, password: string): User {
+  public createUser({ fullName, email, password }: IUser): User {
     const user = new User(fullName, email, password);
     this.users.push(user);
     return user;

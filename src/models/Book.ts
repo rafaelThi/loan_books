@@ -11,7 +11,9 @@ class Book {
 
   amount: number;
 
-  constructor(name: string, author: string, language: string, amount: number) {
+  constructor({
+    name, author, language, amount,
+  }: Omit<Book, 'id'>) {
     this.id = uuid();
     this.name = name;
     this.author = author;
