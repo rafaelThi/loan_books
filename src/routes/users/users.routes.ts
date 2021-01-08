@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import User from '../../models/User';
 import UserRepository from '../../Repositories/UsersRepository';
 
 const routerUser = Router();

@@ -11,7 +11,7 @@ class UserRepository {
     return this.users;
   }
 
-  public findByEmailUser(emailUser): User | undefined {
+  public findByEmailUser(emailUser: string): User | undefined {
     const findEmail = this.users.find((user:User) => user.email === emailUser);
     return findEmail;
   }
