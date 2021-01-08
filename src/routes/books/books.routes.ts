@@ -1,6 +1,5 @@
 /* eslint-disable array-callback-return */
 import { Router } from 'express';
-import Book from '../../models/Book';
 import BooksRepository from '../../Repositories/BooksRepository';
 
 const routerBooks = Router();
@@ -10,7 +9,7 @@ routerBooks.post('/register-book', (request, response) => {
   const {
     author, name, language, amount,
   } = request.body;
-  const book = booksRepository.create(author, name, language, amount);
+  const book = booksRepository.createBook(author, name, language, amount);
 
   return response.json(book);
 });

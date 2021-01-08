@@ -7,7 +7,7 @@ class BooksRepository {
     this.books = [];
   }
 
-  public create(author: string, name: string, language: string, amount: number):Book {
+  public createBook(author: string, name: string, language: string, amount: number):Book {
     const book = new Book(name, author, language, amount);
     this.books.push(book);
     return book;
