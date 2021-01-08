@@ -1,21 +1,21 @@
 import { Router } from 'express';
-import Admin from '../../models/Admin';
+import AdminRepository from '../../Repositories/AdminRepository';
 
 const routerAdmin = Router();
+const adminRepository = new AdminRepository();
 
-const adminUser: Admin[] = [];
-
-routerAdmin.get('/list-all-owners', (request, response) => response.json({ adminUser }));
+routerAdmin.get('/list-all-owners', (request, response) => {
+  const admins = adminRepository.listAll();
+  return response.json({ admins });
+});
 
 routerAdmin.post('/create-owners', (request, response) => {
   const { fullNameAdmin, emailAdmin, passwordAdmin } = request.body;
 
-  const findEmail = adminUser.find((userOwner: Admin) => userOwner.emailAdmin === emailAdmin);
+  const findEmail = adminRepository.findByEmailAdmin(emailAdmin);
   if (!findEmail) {
-    const userOwner:Admin = new Admin(fullNameAdmin, emailAdmin, passwordAdmin);
-
-    adminUser.push(userOwner);
-    return response.json({ userOwner });
+    const userAdmin = adminRepository.createAdmin(fullNameAdmin, emailAdmin, passwordAdmin);
+    return response.status(200).json({ userAdmin });
   }
   return response.status(400).json({ message: `Email:${emailAdmin} já cadastrado` });
 });
