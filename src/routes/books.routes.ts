@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 import { Router } from 'express';
-import BooksRepository from '../../Repositories/BooksRepository';
+import BooksRepository from '../Repositories/BooksRepository';
 
 const routerBooks = Router();
 const booksRepository = new BooksRepository();

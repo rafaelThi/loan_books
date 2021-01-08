@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import routerBooks from './books/books.routes';
-import routerAdmin from './admin/adimin.routes';
-import routerUser from './users/users.routes';
+import routerBooks from './books.routes';
+import routerAdmin from './adimin.routes';
+import routerUser from './users.routes';
 
 const routes = Router();
 

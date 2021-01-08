@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import AdminRepository from '../../Repositories/AdminRepository';
+import AdminRepository from '../Repositories/AdminRepository';
 
 const routerAdmin = Router();
 const adminRepository = new AdminRepository();
