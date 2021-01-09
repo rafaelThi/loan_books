@@ -1,3 +1,5 @@
+import { getCustomRepository } from 'typeorm';
+import { hash } from 'bcryptjs';
 import User from '../models/User';
 import UserRepository from '../Repositories/UsersRepository';
 
@@ -8,22 +10,24 @@ interface IUserRequest {
 }
 
 class CreateUserService {
-  private userRepository: UserRepository;
+  public async execute({ fullName, email, password }: IUserRequest): Promise<User> {
+    const userRepo = getCustomRepository(UserRepository);
 
-  constructor(userRepository: UserRepository) {
-    this.userRepository = userRepository;
-  }
-
-  public execute({ fullName, email, password }: IUserRequest): User {
-    const findEmail = this.userRepository.findByEmailUser(email);
+    const findEmail = await userRepo.findByEmailUser(email);
     if (findEmail) {
       throw new Error(`Email: "${email}" já cadastrado`);
     }
-    const user = this.userRepository.createUser({
+
+    const hashPass = await hash(password, 8);
+    const user = userRepo.create({
       fullName,
       email,
-      password,
+      password: hashPass,
     });
+
+    await userRepo.save(user);
+
+    delete user.password;
     return user;
   }
 }

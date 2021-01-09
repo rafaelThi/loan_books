@@ -26,6 +26,7 @@
       "@typescript-eslint"
   ],
   "rules": {
+    "camelcase":"off",
     "class-methods-use-this":"off",
     "no-console":"off",
     "react-hooks/rules-of-hooks": "error",

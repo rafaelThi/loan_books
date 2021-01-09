@@ -1,3 +1,5 @@
+import { hash } from 'bcryptjs';
+import { getCustomRepository } from 'typeorm';
 import Admin from '../models/Admin';
 import AdminRepository from '../Repositories/AdminRepository';
 
@@ -8,22 +10,30 @@ interface IAdminRequest {
 }
 
 class CreateAdminService {
-  private adminRepository: AdminRepository;
+  public async execute({
+    fullNameAdmin,
+    emailAdmin,
+    passwordAdmin,
+  }: IAdminRequest): Promise<Admin> {
+    const adminRepo = getCustomRepository(AdminRepository);
 
-  constructor(adminRepository: AdminRepository) {
-    this.adminRepository = adminRepository;
-  }
-
-  public execute({ fullNameAdmin, emailAdmin, passwordAdmin }: IAdminRequest): Admin {
-    const findEmail = this.adminRepository.findByEmailAdmin(emailAdmin);
+    const findEmail = await adminRepo.findByEmailAdmin(emailAdmin);
     if (findEmail) {
       throw new Error(`Email: "${emailAdmin}" já cadastrado`);
     }
-    const userAdmin = this.adminRepository.createAdmin({
+
+    const hashPass = await hash(passwordAdmin, 8);
+
+    const userAdmin = adminRepo.create({
       fullNameAdmin,
       emailAdmin,
-      passwordAdmin,
+      passwordAdmin: hashPass,
     });
+
+    await adminRepo.save(userAdmin);
+
+    delete userAdmin.passwordAdmin;
+
     return userAdmin;
   }
 }
