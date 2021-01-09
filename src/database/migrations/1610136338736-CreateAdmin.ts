@@ -11,6 +11,8 @@ export default class CreateAdmin1610136338736 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+
           },
           {
             name: 'fullNameAdmin',

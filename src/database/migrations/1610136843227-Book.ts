@@ -1,4 +1,6 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface, QueryRunner, Table, TableForeignKey,
+} from 'typeorm';
 
 export class Book1610136843227 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -11,6 +13,8 @@ export class Book1610136843227 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+
           },
           {
             name: 'name',
@@ -32,8 +36,24 @@ export class Book1610136843227 implements MigrationInterface {
             type: 'int',
             isNullable: false,
           },
+          {
+            name: 'owner_id',
+            type: 'uuid',
+            isNullable: true,
+          },
         ],
 
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'books',
+      new TableForeignKey({
+        name: 'BookOwner',
+        columnNames: ['owner_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'admins',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       }),
     );
   }
