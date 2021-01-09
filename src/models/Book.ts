@@ -1,25 +1,31 @@
-import { uuid } from 'uuidv4';
+import {
+  Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,
+} from 'typeorm';
+import Admin from './Admin';
 
+@Entity('books')
 class Book {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column()
   name: string;
 
+  @Column()
   author: string;
 
+  @Column()
   language: string;
 
+  @Column()
   amount: number;
 
-  constructor({
-    name, author, language, amount,
-  }: Omit<Book, 'id'>) {
-    this.id = uuid();
-    this.name = name;
-    this.author = author;
-    this.language = language;
-    this.amount = amount;
-  }
+  @Column()
+  owner_id: string;
+
+  @ManyToOne(() => Admin)
+  @JoinColumn({ name: 'owner_id' })
+    owner: Admin;
 }
 
 export default Book;

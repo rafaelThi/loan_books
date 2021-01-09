@@ -1,24 +1,28 @@
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 import UserRepository from '../Repositories/UsersRepository';
 import CreateUserService from '../services/CreateUserService';
 
 const routerUser = Router();
-const userRepository = new UserRepository();
 
-routerUser.get('/list-all-users', (request, response) => {
-  const users = userRepository.listAllUsers();
+routerUser.get('/list-all-users', async (request, response) => {
+  const userRepo = getCustomRepository(UserRepository);
+  const users = await userRepo.find();
   return response.json({ users });
 });
-routerUser.post('/create-user', (request, response) => {
-  const { fullName, email, password } = request.body;
-
-  const createUser = new CreateUserService(userRepository);
-  const user = createUser.execute({
-    fullName,
-    email,
-    password,
-  });
-  return response.json({ user });
+routerUser.post('/create-user', async (request, response) => {
+  try {
+    const { fullName, email, password } = request.body;
+    const createUser = new CreateUserService();
+    const user = await createUser.execute({
+      fullName,
+      email,
+      password,
+    });
+    return response.status(200).json({ user });
+  } catch (err) {
+    return response.status(400).json({ message: `${err}` });
+  }
 });
 
 export default routerUser;

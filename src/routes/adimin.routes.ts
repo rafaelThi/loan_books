@@ -1,25 +1,30 @@
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 import AdminRepository from '../Repositories/AdminRepository';
 import CreateAdminService from '../services/CreateAdminService';
 
 const routerAdmin = Router();
-const adminRepository = new AdminRepository();
 
-routerAdmin.get('/list-all-owners', (request, response) => {
-  const admins = adminRepository.listAll();
+routerAdmin.get('/list-all-owners', async (request, response) => {
+  const adminRepository = getCustomRepository(AdminRepository);
+  const admins = await adminRepository.find();
   return response.json({ admins });
 });
 
-routerAdmin.post('/create-owners', (request, response) => {
-  const { fullNameAdmin, emailAdmin, passwordAdmin } = request.body;
-  const createAdmin = new CreateAdminService(adminRepository);
+routerAdmin.post('/create-owners', async (request, response) => {
+  try {
+    const { fullNameAdmin, emailAdmin, passwordAdmin } = request.body;
+    const createAdmin = new CreateAdminService();
 
-  const admin = createAdmin.execute({
-    fullNameAdmin,
-    emailAdmin,
-    passwordAdmin,
-  });
-  return response.json({ admin });
+    const admin = await createAdmin.execute({
+      fullNameAdmin,
+      emailAdmin,
+      passwordAdmin,
+    });
+    return response.json({ admin });
+  } catch (err) {
+    return response.status(400).json({ message: `${err}` });
+  }
 });
 
 export default routerAdmin;

@@ -1,31 +1,13 @@
+import { EntityRepository, Repository } from 'typeorm';
 import User from '../models/User';
 
-interface IUser {
-  fullName: string;
-  email: string;
-  password: string;
-}
-
-class UserRepository {
-  private users:User[];
-
-  constructor() {
-    this.users = [];
-  }
-
-  public listAllUsers(): User[] {
-    return this.users;
-  }
-
-  public findByEmailUser(emailUser: string): User | undefined {
-    const findEmail = this.users.find((user:User) => user.email === emailUser);
-    return findEmail;
-  }
-
-  public createUser({ fullName, email, password }: IUser): User {
-    const user = new User(fullName, email, password);
-    this.users.push(user);
-    return user;
+@EntityRepository(User)
+class UserRepository extends Repository<User> {
+  public async findByEmailUser(email: string): Promise<User | null> {
+    const findEmail = await this.findOne({
+      where: { email },
+    });
+    return findEmail || null;
   }
 }
 export default UserRepository;
