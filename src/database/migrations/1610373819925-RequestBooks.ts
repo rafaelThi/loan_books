@@ -16,7 +16,7 @@ export default class RequestBooks1610373819925 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'name_book',
+            name: 'id_book',
             type: 'uuid',
             isNullable: false,
           },
@@ -36,8 +36,8 @@ export default class RequestBooks1610373819925 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'requestsbooks',
       new TableForeignKey({
-        name: 'NameBook',
-        columnNames: ['name_book'],
+        name: 'IdBook',
+        columnNames: ['id_book'],
         referencedColumnNames: ['id'],
         referencedTableName: 'books',
         onDelete: 'CASCADE',

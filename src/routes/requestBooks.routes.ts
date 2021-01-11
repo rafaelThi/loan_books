@@ -5,20 +5,23 @@ import RequestBook from '../models/RequestBook';
 const routerRequestBooks = Router();
 
 routerRequestBooks.post('/request-book', async (request, response) => {
-  const { nameBook, id_user, id_admin } = request.body;
+  const { id_book, id_user, id_admin } = request.body;
   const requestBookRepository = getRepository(RequestBook);
   const requestBook = await requestBookRepository.create({
-    nameBook,
+    id_book,
     id_user,
     id_admin,
   });
-  return response.send(200).json({ requestBook });
+
+  await requestBookRepository.save(requestBook);
+
+  return response.json({ requestBook });
 });
 
-routerRequestBooks.get('/all-requests-books', (request, response) => {
+routerRequestBooks.get('/all-requests-books', async (request, response) => {
   const requestBookRepository = getRepository(RequestBook);
-  const allRequestsBooks = requestBookRepository.find();
-  return response.send(200).json({ allRequestsBooks });
+  const allRequestsBooks = await requestBookRepository.find();
+  return response.json({ allRequestsBooks });
 });
 
 export default routerRequestBooks;

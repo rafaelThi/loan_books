@@ -5,31 +5,31 @@ import Book from './Book';
 import User from './User';
 import Admin from './Admin';
 
-@Entity('requestBooks')
+@Entity('requestsbooks')
 class RequestBook {
 @PrimaryGeneratedColumn('uuid')
   id: string;
 
 @Column()
-  name_book: string;
+  id_book: string;
 
 @ManyToOne(() => Book)
-@JoinColumn({ name: 'name_book' })
-  nameBook: Book
+@JoinColumn({ name: 'id_book' })
+IdBook: Book
 
 @Column()
 id_user: string;
 
   @ManyToOne(() => User)
 @JoinColumn({ name: 'id_user' })
-  user: User
+IdUser: User
 
   @Column()
   id_admin: string;
 
   @ManyToOne(() => Admin)
 @JoinColumn({ name: 'id_admin' })
-  admin: Admin
+IdAdmin: Admin
 }
 
 export default RequestBook;
