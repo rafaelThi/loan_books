@@ -40,7 +40,7 @@ export default class RequestBooks1610373819925 implements MigrationInterface {
         columnNames: ['name_book'],
         referencedColumnNames: ['id'],
         referencedTableName: 'books',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
     );
@@ -51,7 +51,7 @@ export default class RequestBooks1610373819925 implements MigrationInterface {
         columnNames: ['id_user'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
     );
@@ -63,13 +63,13 @@ export default class RequestBooks1610373819925 implements MigrationInterface {
         columnNames: ['id_admin'],
         referencedColumnNames: ['id'],
         referencedTableName: 'admins',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('requestBooks');
+    await queryRunner.dropTable('requestsbooks');
   }
 }

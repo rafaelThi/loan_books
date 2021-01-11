@@ -39,7 +39,7 @@ export class Book1610136843227 implements MigrationInterface {
           {
             name: 'owner_id',
             type: 'uuid',
-            isNullable: true,
+            isNullable: false,
           },
         ],
 
@@ -52,7 +52,7 @@ export class Book1610136843227 implements MigrationInterface {
         columnNames: ['owner_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'admins',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
     );
