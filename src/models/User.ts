@@ -12,6 +12,6 @@ class User {
   email: string;
 
   @Column()
-  password?: string;
+  password: string;
 }
 export default User;
