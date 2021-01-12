@@ -11,6 +11,7 @@ routerRequestBooks.post('/request-book', async (request, response) => {
   console.log(request.user);
   const { id_book, id_user, id_admin } = request.body;
   const requestBookRepository = getRepository(RequestBook);
+
   const requestBook = await requestBookRepository.create({
     id_book,
     id_user,
