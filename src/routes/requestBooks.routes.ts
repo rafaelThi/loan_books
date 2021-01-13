@@ -9,8 +9,11 @@ routerRequestBooks.use(authUser);
 
 routerRequestBooks.post('/request-book', async (request, response) => {
   console.log(request.user);
-  const { id_book, id_user, id_admin } = request.body;
+  const { id_book, id_admin } = request.body;
   const requestBookRepository = getRepository(RequestBook);
+
+  const id_user = request.user.id;
+  // const id_admin = request.admin.id;
 
   const requestBook = await requestBookRepository.create({
     id_book,

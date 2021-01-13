@@ -1,11 +1,14 @@
 /* eslint-disable array-callback-return */
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
+import authAdminMiddle from '../middleware/authAdminMiddle';
 import BooksRepository from '../Repositories/BooksRepository';
 
 const routerBooks = Router();
 
-routerBooks.post('/register-book', async (request, response) => {
+// routerBooks.use(authAdminMiddle);
+
+routerBooks.post('/register-book', authAdminMiddle, async (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);
   const {
     author, name, language, amount, owner_id,
@@ -62,7 +65,7 @@ routerBooks.get('/list-one-book-language/:language', async (request, response) =
   return response.status(400).json({ message: `Livro do ${language} não encontrado` });
 });
 
-routerBooks.delete('/delete-book', (request, response) => {
+routerBooks.delete('/delete-book', authAdminMiddle, (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);
   const { id } = request.body;
   booksRepository.deleteBook(id);

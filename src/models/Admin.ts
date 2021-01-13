@@ -12,7 +12,7 @@ class Admin {
   emailAdmin: string;
 
   @Column()
-  passwordAdmin?: string;
+  passwordAdmin: string;
 }
 
 export default Admin;
