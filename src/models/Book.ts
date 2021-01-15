@@ -18,7 +18,7 @@ class Book {
   language: string;
 
   @Column()
-  amount: number;
+  img: string;
 
   @Column()
   owner_id: string;

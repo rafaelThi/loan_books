@@ -32,8 +32,8 @@ export class Book1610136843227 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'amount',
-            type: 'int',
+            name: 'img',
+            type: 'varchar',
             isNullable: false,
           },
           {
