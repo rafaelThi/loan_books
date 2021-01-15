@@ -8,7 +8,7 @@ const routerBooks = Router();
 
 // routerBooks.use(authAdminMiddle);
 
-routerBooks.post('/register-book', authAdminMiddle, async (request, response) => {
+routerBooks.post('/register-book', async (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);
   const {
     author, name, language, img,
