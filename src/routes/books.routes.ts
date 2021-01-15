@@ -11,14 +11,14 @@ const routerBooks = Router();
 routerBooks.post('/register-book', authAdminMiddle, async (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);
   const {
-    author, name, language, img, owner_id,
+    author, name, language, img,
   } = request.body;
   const book = await booksRepository.create({
     author,
     name,
     language,
     img,
-    owner_id,
+    owner_id: request.admin.id,
   });
 
   await booksRepository.save(book);
