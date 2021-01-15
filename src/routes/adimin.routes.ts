@@ -5,6 +5,13 @@ import CreateAdminService from '../services/CreateAdminService';
 
 const routerAdmin = Router();
 
+routerAdmin.get('/list-owner/:id', async (request, response) => {
+  const adminRepository = getCustomRepository(AdminRepository);
+  const { id } = request.params;
+  const idOwner = await adminRepository.findOne(id);
+  return response.json({ idOwner });
+});
+
 routerAdmin.get('/list-all-owners', async (request, response) => {
   const adminRepository = getCustomRepository(AdminRepository);
   const admins = await adminRepository.find();

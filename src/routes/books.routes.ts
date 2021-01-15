@@ -28,6 +28,13 @@ routerBooks.post('/register-book', authAdminMiddle, async (request, response) =>
 
 // PUTS//
 
+routerBooks.get('/list-book-id/:id', async (request, response) => {
+  const booksRepository = getCustomRepository(BooksRepository);
+  const { id } = request.params;
+  const books = await booksRepository.findOne(id);
+  return response.json({ books });
+});
+
 routerBooks.get('/list-all-books', async (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);
   const books = await booksRepository.find();
