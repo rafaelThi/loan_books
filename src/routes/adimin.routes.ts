@@ -12,6 +12,14 @@ routerAdmin.get('/list-owner/:id', async (request, response) => {
   return response.json({ idOwner });
 });
 
+routerAdmin.get('/list-owner/:email', async (request, response) => {
+  const adminRepository = getCustomRepository(AdminRepository);
+  const { email } = request.params;
+  const idOwner = await adminRepository.findOne(email);
+  console.log(idOwner);
+  return response.json(idOwner?.id);
+});
+
 routerAdmin.get('/list-all-owners', async (request, response) => {
   const adminRepository = getCustomRepository(AdminRepository);
   const admins = await adminRepository.find();
