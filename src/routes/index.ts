@@ -5,6 +5,7 @@ import routerUser from './users.routes';
 import routerRequestBooks from './requestBooks.routes';
 import routerSessionUser from './sessionUser.routes';
 import routerSessionAdmin from './sessionAdmin.routes';
+import tokenUser from './tokenUser.routes';
 
 const routes = Router();
 
@@ -19,5 +20,7 @@ routes.use('/requests', routerRequestBooks);
 routes.use('/session-users', routerSessionUser);
 
 routes.use('/session-admin', routerSessionAdmin);
+
+routes.use('/users-token', tokenUser);
 
 export default routes;

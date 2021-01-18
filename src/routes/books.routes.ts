@@ -1,20 +1,17 @@
 /* eslint-disable array-callback-return */
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
-import { uuid } from 'uuidv4';
 import authAdminMiddle from '../middleware/authAdminMiddle';
+import authUser from '../middleware/authUser';
 import BooksRepository from '../Repositories/BooksRepository';
 
 const routerBooks = Router();
 
-// routerBooks.use(authAdminMiddle);
-
-routerBooks.post('/register-book/:id', async (request, response) => {
+routerBooks.post('/register-book/:id', authAdminMiddle, async (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);
   const {
     author, name, language, img,
   } = request.body;
-  // const { id_owner } = request.params.id;
 
   const book = await booksRepository.create({
     author,
@@ -30,6 +27,8 @@ routerBooks.post('/register-book/:id', async (request, response) => {
 });
 
 // PUTS//
+
+// routerBooks.use(authUser);
 
 routerBooks.get('/list-book-id/:id', async (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);

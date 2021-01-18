@@ -1,8 +1,9 @@
 import { compare } from 'bcryptjs';
-import { getRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 import auth from '../config/auth';
 import User from '../models/User';
+import TokenUserRepository from '../Repositories/TokenUserRepository';
 
 interface ISessionUser {
   email: string;
@@ -17,6 +18,7 @@ interface IUserAuth {
 class SessionUser {
   public async execute({ email, password }: ISessionUser): Promise<IUserAuth> {
     const userRepo = getRepository(User);
+    const tokenRepo = getCustomRepository(TokenUserRepository);
 
     const user = await userRepo.findOne({
       where: { email },
@@ -29,10 +31,13 @@ class SessionUser {
       throw new Error('Usuário inválido');
     }
 
-    const token = sign({}, auth.jwt.secret, {
-      subject: user.id,
-      expiresIn: auth.jwt.expiresIn,
-    });
+    const { token } = await tokenRepo.generate(user.id);
+
+    console.log(token);
+    // const token = sign({}, auth.jwt.secret, {
+    //   subject: user.id,
+    //   expiresIn: auth.jwt.expiresIn,
+    // });
     return ({ user, token });
   }
 }
