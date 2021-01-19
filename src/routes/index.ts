@@ -6,6 +6,7 @@ import routerRequestBooks from './requestBooks.routes';
 import routerSessionUser from './sessionUser.routes';
 import routerSessionAdmin from './sessionAdmin.routes';
 import tokenUser from './tokenUser.routes';
+import tokenAdmin from './tokenAdmin.routes';
 
 const routes = Router();
 
@@ -22,5 +23,7 @@ routes.use('/session-users', routerSessionUser);
 routes.use('/session-admin', routerSessionAdmin);
 
 routes.use('/users-token', tokenUser);
+
+routes.use('/admin-token', tokenAdmin);
 
 export default routes;

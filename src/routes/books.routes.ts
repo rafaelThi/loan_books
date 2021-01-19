@@ -2,12 +2,11 @@
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 import authAdminMiddle from '../middleware/authAdminMiddle';
-import authUser from '../middleware/authUser';
 import BooksRepository from '../Repositories/BooksRepository';
 
 const routerBooks = Router();
 
-routerBooks.post('/register-book/:id', authAdminMiddle, async (request, response) => {
+routerBooks.post('/register-book/:id', async (request, response) => {
   const booksRepository = getCustomRepository(BooksRepository);
   const {
     author, name, language, img,

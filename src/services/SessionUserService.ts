@@ -1,7 +1,7 @@
 import { compare } from 'bcryptjs';
 import { getCustomRepository, getRepository } from 'typeorm';
-import { sign } from 'jsonwebtoken';
-import auth from '../config/auth';
+// import { sign } from 'jsonwebtoken';
+// import auth from '../config/auth';
 import User from '../models/User';
 import TokenUserRepository from '../Repositories/TokenUserRepository';
 
