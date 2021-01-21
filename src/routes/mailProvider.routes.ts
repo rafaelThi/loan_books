@@ -1,36 +1,45 @@
 import { Router } from 'express';
-import nodemailer from 'nodemailer';
+import MailProvider from '../services/MailProviderService';
+import routerAdmin from './adimin.routes';
 
 const routerMailProvider = Router();
 
 // const sendmailController = new SendMailController();
 
-routerMailProvider.post('/send-mail', async (request, response) => {
-  const { email, to } = request.body;
-  nodemailer.createTestAccount().then(async (account) => {
-    const transporter = await nodemailer.createTransport({
-      host: account.smtp.host,
-      port: account.smtp.port,
-      secure: account.smtp.secure,
-      auth: {
-        user: account.user,
-        pass: account.pass,
-      },
-    });
-    console.log(account);
+routerMailProvider.post('/send-mail-recover-password', async (request, response) => {
+  const { email } = request.body;
+  // rever o corpo
+  const messageMail = {
+    title: 'Recuperação de senha',
+    body: 'Recureção de senha',
+  };
 
-    const client = await transporter;
-    const message = await client.sendMail({
-      from: 'Equipe Loan Books <rafael.pereira20@icloud.com>',
-      to,
-      subject: 'E-mail  ✔',
-      text: `Corpo + ${email}`,
-    });
-    console.log('Message sent: %s', message.messageId);
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
+  const mailProvider = new MailProvider();
+
+  const sendMail = await mailProvider.execute({
+    email,
+    messageMail,
   });
 
-  return response.sendStatus(204);
+  return response.json(sendMail);
+});
+
+routerMailProvider.post('/send-mail-request-book', async (request, response) => {
+  const { email, name_user, name_book } = request.body;
+  // rever o corpo
+  const messageMail = {
+    title: 'Requisição de um livro',
+    body: `O livro, ${name_book}, foi requisitado pelo usuario: ${name_user}`,
+  };
+
+  const mailProvider = new MailProvider();
+
+  const sendMail = await mailProvider.execute({
+    email,
+    messageMail,
+  });
+
+  return response.json(sendMail);
 });
 
 export default routerMailProvider;
