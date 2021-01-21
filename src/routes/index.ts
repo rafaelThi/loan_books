@@ -7,6 +7,7 @@ import routerSessionUser from './sessionUser.routes';
 import routerSessionAdmin from './sessionAdmin.routes';
 import tokenUser from './tokenUser.routes';
 import tokenAdmin from './tokenAdmin.routes';
+import mailProvider from './mailProvider.routes';
 
 const routes = Router();
 
@@ -25,5 +26,7 @@ routes.use('/session-admin', routerSessionAdmin);
 routes.use('/users-token', tokenUser);
 
 routes.use('/admin-token', tokenAdmin);
+
+routes.use('/mail-provider', mailProvider);
 
 export default routes;
