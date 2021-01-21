@@ -4,7 +4,7 @@ import TokenUserRepository from '../Repositories/TokenUserRepository';
 
 const tokenUser = Router();
 
-tokenUser.get('/token/:id', async (request, response) => {
+tokenUser.get('/token/:token', async (request, response) => {
   const userRepo = getCustomRepository(TokenUserRepository);
   const userToken = request.params;
   const matchToken = await userRepo.findOne(userToken);

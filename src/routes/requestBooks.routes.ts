@@ -1,20 +1,16 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import RequestBook from '../models/RequestBook';
-import authUser from '../middleware/authUser';
+// import authUser from '../middleware/authUser';
 
 const routerRequestBooks = Router();
 
-routerRequestBooks.use(authUser);
-
-routerRequestBooks.post('/request-book/:id', async (request, response) => {
-  console.log(request.user);
-  const { id } = request.params;
-  const { id_admin } = request.body;
+// routerRequestBooks.use(authUser);
+routerRequestBooks.post('/request-book/:id', async (req, response) => {
+  console.log(req.user.id);
+  const { id } = req.params;
+  const { id_admin, id_user } = req.body;
   const requestBookRepository = getRepository(RequestBook);
-
-  const id_user = request.user.id;
-  // const id_admin = request.admin.id;
 
   const requestBook = await requestBookRepository.create({
     id_book: id,
@@ -27,8 +23,8 @@ routerRequestBooks.post('/request-book/:id', async (request, response) => {
   return response.json({ requestBook });
 });
 
-routerRequestBooks.get('/all-requests-books', async (request, response) => {
-  console.log(request.user);
+routerRequestBooks.get('/all-requests-books', async (req, response) => {
+  console.log(userId);
   const requestBookRepository = getRepository(RequestBook);
   const allRequestsBooks = await requestBookRepository.find();
   return response.json({ allRequestsBooks });

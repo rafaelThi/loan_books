@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import MailProvider from '../services/MailProviderService';
-import routerAdmin from './adimin.routes';
 
 const routerMailProvider = Router();
 
@@ -11,7 +10,7 @@ routerMailProvider.post('/send-mail-recover-password', async (request, response)
   // rever o corpo
   const messageMail = {
     title: 'Recuperação de senha',
-    body: 'Recureção de senha',
+    body: `Recuperação de senha para o email: ${email}`,
   };
 
   const mailProvider = new MailProvider();

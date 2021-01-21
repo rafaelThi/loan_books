@@ -26,9 +26,9 @@ export default class MailProvider {
 `;
       const client = transporter;
       const message = await client.sendMail({
-        from: 'Equipe Loan Books <rafael.pereira20@icloud.com>',
+        from: 'Equipe Loan Books <contato@contato.com>',
         to: email,
-        subject: 'E-mail  ✔',
+        subject: `${messageMail.title}✔`,
         html: Html,
       });
       console.log('Message sent: %s', message.messageId);
