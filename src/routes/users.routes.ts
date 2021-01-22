@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
+import User from '../models/User';
 import UserRepository from '../Repositories/UsersRepository';
 import CreateUserService from '../services/CreateUserService';
 
@@ -10,6 +11,17 @@ routerUser.get('/list-all-users', async (request, response) => {
   const users = await userRepo.find();
   return response.json({ users });
 });
+
+routerUser.get('/list-user-email/:email', async (request, response) => {
+  const { email } = request.params;
+  const userRepo = getRepository(User);
+  const user = await userRepo.findOne({
+    where: { email },
+  });
+  delete user?.password;
+  return response.json({ user });
+});
+
 routerUser.post('/create-user', async (request, response) => {
   try {
     const { fullName, email, password } = request.body;

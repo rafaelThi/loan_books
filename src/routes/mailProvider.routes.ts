@@ -24,11 +24,16 @@ routerMailProvider.post('/send-mail-recover-password', async (request, response)
 });
 
 routerMailProvider.post('/send-mail-request-book', async (request, response) => {
-  const { email, name_user, name_book } = request.body;
+  console.log(request.body);
+  const {
+    email, name_user, name_book, id,
+  } = request.body;
   // rever o corpo
   const messageMail = {
     title: 'Requisição de um livro',
-    body: `O livro, ${name_book}, foi requisitado pelo usuario: ${name_user}`,
+    body: `O livro, ${name_book}, foi requisitado pelo usuario: ${name_user}.
+    O numero do pedido é: ${id}
+    `,
   };
 
   const mailProvider = new MailProvider();

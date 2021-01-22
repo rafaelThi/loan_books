@@ -17,7 +17,7 @@ routerSessionAdmin.post('/', async (request, response) => {
 
     return response.json(createSessionAdmin);
   } catch (error) {
-    return response.json('error');
+    return response.json('Erro');
   }
 });
 export default routerSessionAdmin;

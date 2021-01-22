@@ -15,7 +15,7 @@ class TokenUser {
   @Column()
   id_user: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'id_user' })
   IdUser: User
 }

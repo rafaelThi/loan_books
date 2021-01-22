@@ -33,7 +33,7 @@ export default function authAdminMiddle(
       id: sub,
     };
     // declarando um novo tipod express, isso funciona junto do src/@types/express.d.ts
-    console.log(matchAdminToken);
+    // console.log(matchAdminToken);
     return next();
   } catch (err) {
     throw new Error(`JWT token is missing, Erro: ${err}`);

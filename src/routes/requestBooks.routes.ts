@@ -6,10 +6,9 @@ import RequestBook from '../models/RequestBook';
 const routerRequestBooks = Router();
 
 // routerRequestBooks.use(authUser);
-routerRequestBooks.post('/request-book/:id', async (req, response) => {
-  console.log(req.user.id);
-  const { id } = req.params;
-  const { id_admin, id_user } = req.body;
+routerRequestBooks.post('/request-book/:id', async (request, response) => {
+  const { id } = request.params;
+  const { id_admin, id_user } = request.body;
   const requestBookRepository = getRepository(RequestBook);
 
   const requestBook = await requestBookRepository.create({
@@ -23,8 +22,8 @@ routerRequestBooks.post('/request-book/:id', async (req, response) => {
   return response.json({ requestBook });
 });
 
-routerRequestBooks.get('/all-requests-books', async (req, response) => {
-  console.log(userId);
+routerRequestBooks.get('/all-requests-books', async (request, response) => {
+  // console.log(userId);
   const requestBookRepository = getRepository(RequestBook);
   const allRequestsBooks = await requestBookRepository.find();
   return response.json({ allRequestsBooks });

@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { verify } from 'jsonwebtoken';
-import auth from '../config/auth';
+// import { verify } from 'jsonwebtoken';
+// import auth from '../config/auth';
 
-interface ITokenPayLoad {
-  iat: number;
-  exp: number;
-  sub: string;
-}
+// interface ITokenPayLoad {
+//   iat: number;
+//   exp: number;
+//   sub: string;
+// }
 
 export default function authUser(request: Request, response: Response, next: NextFunction): void {
   const authHeaders = request.headers.authorization;
@@ -17,19 +17,16 @@ export default function authUser(request: Request, response: Response, next: Nex
     throw new Error(`JWT token is missing, Erro: ${authHeaders}`);
   }
   // desestruturando o token
-  const [, token] = authHeaders.split(' ');
+  const token = authHeaders;
   try {
     // verificando o token recebido com o que tem na memorias
-    const matchToken = verify(token, auth.jwt.secret);
-
-    const { sub } = matchToken as ITokenPayLoad;
     // isso faz com que o matchToken seja desse formato
 
     request.user = {
-      id: sub,
+      id: token,
     };
     // declarando um novo tipod express, isso funciona junto do src/@types/express.d.ts
-    console.log(matchToken);
+    // console.log(token);
     return next();
   } catch (err) {
     throw new Error(`JWT token is missing, Erro: ${err}`);
