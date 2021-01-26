@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import dates from '../SendMailData';
 
 interface IEmailDTO {
   email: string;
@@ -12,12 +13,13 @@ export default class MailProvider {
   public async execute({ email, messageMail }:IEmailDTO): Promise<void> {
     const sendMail = nodemailer.createTestAccount().then(async (account) => {
       const transporter = await nodemailer.createTransport({
-        host: account.smtp.host,
-        port: account.smtp.port,
-        secure: account.smtp.secure,
+        service: 'hotmail',
         auth: {
-          user: account.user,
-          pass: account.pass,
+          user: dates.dates.sendEmail,
+          pass: dates.dates.sendPass,
+        },
+        tls: {
+          rejectUnauthorized: false,
         },
       });
       console.log(account);
@@ -26,7 +28,7 @@ export default class MailProvider {
 `;
       const client = transporter;
       const message = await client.sendMail({
-        from: 'Equipe Loan Books <contato@contato.com>',
+        from: dates.dates.sendEmail,
         to: email,
         subject: `${messageMail.title}✔`,
         html: Html,
