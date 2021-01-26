@@ -22,6 +22,15 @@ routerUser.get('/list-user-email/:email', async (request, response) => {
   return response.json({ user });
 });
 
+routerUser.get('/list-user-id/:id', async (request, response) => {
+  const { id } = request.params;
+  const userRepo = getRepository(User);
+  const user = await userRepo.findOne({
+    where: { id },
+  });
+  return response.json({ user });
+});
+
 routerUser.post('/create-user', async (request, response) => {
   try {
     const { fullName, email, password } = request.body;
