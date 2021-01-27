@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import dates from '../SendMailData';
+import 'dotenv';
 
 interface IEmailDTO {
   email: string;
@@ -15,8 +15,8 @@ export default class MailProvider {
       const transporter = await nodemailer.createTransport({
         service: 'hotmail',
         auth: {
-          user: dates.dates.sendEmail,
-          pass: dates.dates.sendPass,
+          user: process.env.SENDEMAIL,
+          pass: process.env.SENDPASS,
         },
         tls: {
           rejectUnauthorized: false,
@@ -28,7 +28,7 @@ export default class MailProvider {
 `;
       const client = transporter;
       const message = await client.sendMail({
-        from: dates.dates.sendEmail,
+        from: process.env.SENDEMAIL,
         to: email,
         subject: `${messageMail.title}✔`,
         html: Html,
