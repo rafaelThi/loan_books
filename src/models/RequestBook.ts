@@ -13,14 +13,14 @@ class RequestBook {
 @Column()
   id_book: string;
 
-@ManyToOne(() => Book)
+@ManyToOne(() => Book, { eager: true })
 @JoinColumn({ name: 'id_book' })
 IdBook: Book
 
 @Column()
 id_user: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
 @JoinColumn({ name: 'id_user' })
 IdUser: User
 

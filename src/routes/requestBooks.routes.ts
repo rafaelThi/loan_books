@@ -29,4 +29,13 @@ routerRequestBooks.get('/all-requests-books', async (request, response) => {
   return response.json({ allRequestsBooks });
 });
 
+routerRequestBooks.get('/requests-books/:id_admin', async (request, response) => {
+  const requestBookRepository = getRepository(RequestBook);
+  const { id_admin } = request.params;
+  const RequestBooksIdAdmin = await requestBookRepository.find({
+    where: { id_admin },
+  });
+  return response.json(RequestBooksIdAdmin);
+});
+
 export default routerRequestBooks;
