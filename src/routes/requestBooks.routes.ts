@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
 import RequestBook from '../models/RequestBook';
-// import authUser from '../middleware/authUser';
+import RequestsAccept from '../models/RequestAccept';
 
 const routerRequestBooks = Router();
 
@@ -48,6 +48,24 @@ routerRequestBooks.delete('/delete-request/:id', async (request, response) => {
   const requestBookRepository = getRepository(RequestBook);
   const deleteRequest = await requestBookRepository.delete(id);
   return response.json({ deleteRequest });
+});
+
+routerRequestBooks.post('/aceept', async (request, response) => {
+  const {
+    id_request, id_book, id_user, id_admin,
+  } = request.body;
+  const requestAcceptRepository = getRepository(RequestsAccept);
+
+  const requestAccept = requestAcceptRepository.create({
+    id_request,
+    id_book,
+    id_user,
+    id_admin,
+  });
+
+  await requestAcceptRepository.save(requestAccept);
+
+  return response.json({ requestAccept });
 });
 
 export default routerRequestBooks;

@@ -1,14 +1,17 @@
 import {
-  Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn,
+  Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn,
 } from 'typeorm';
 import Book from './Book';
 import User from './User';
 import Admin from './Admin';
 
 @Entity('requests_accepts')
-class RequestBook {
+class RequestAccept {
 @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  id_request: string;
 
 @Column()
   id_book: string;
@@ -30,6 +33,9 @@ IdUser: User
   @ManyToOne(() => Admin, { eager: true })
 @JoinColumn({ name: 'id_admin' })
 IdAdmin: Admin
+
+@CreateDateColumn()
+created_at: Date;
 }
 
-export default RequestBook;
+export default RequestAccept;
