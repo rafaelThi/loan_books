@@ -30,12 +30,17 @@ routerRequestBooks.get('/all-requests-books', async (request, response) => {
 });
 
 routerRequestBooks.get('/requests-books/:id_admin', async (request, response) => {
-  const requestBookRepository = getRepository(RequestBook);
-  const { id_admin } = request.params;
-  const RequestBooksIdAdmin = await requestBookRepository.find({
-    where: { id_admin },
-  });
-  return response.json(RequestBooksIdAdmin);
+  try {
+    const requestBookRepository = getRepository(RequestBook);
+    const { id_admin } = request.params;
+    const RequestBooksIdAdmin = await requestBookRepository.find({
+      where: { id_admin },
+    });
+    return response.json(RequestBooksIdAdmin);
+  } catch (error) {
+    alert(error);
+    throw new Error(error);
+  }
 });
 
 export default routerRequestBooks;
