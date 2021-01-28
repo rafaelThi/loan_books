@@ -43,4 +43,11 @@ routerRequestBooks.get('/requests-books/:id_admin', async (request, response) =>
   }
 });
 
+routerRequestBooks.delete('/delete-request/:id', async (request, response) => {
+  const { id } = request.params;
+  const requestBookRepository = getRepository(RequestBook);
+  const deleteRequest = await requestBookRepository.delete(id);
+  return response.json({ deleteRequest });
+});
+
 export default routerRequestBooks;

@@ -51,7 +51,6 @@ routerMailProvider.post('/send-mail-request-book', async (request, response) => 
 
     return response.json(sendMail);
   } catch (error) {
-    alert(error);
     throw new Error(error);
   }
 });
@@ -83,7 +82,6 @@ routerMailProvider.post('/send-mail-request-return-accept', async (request, resp
     });
     return response.json({ sendMailUser, sendMailAdmin });
   } catch (error) {
-    alert(error);
     throw new Error(error);
   }
 });
@@ -114,7 +112,6 @@ routerMailProvider.post('/send-mail-request-return-refuse', async (request, resp
     });
     return response.json({ sendMailUser, sendMailAdmin });
   } catch (error) {
-    alert(error);
     throw new Error(error);
   }
 });
