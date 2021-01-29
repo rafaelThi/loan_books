@@ -36,6 +36,12 @@ IdAdmin: Admin
 
 @CreateDateColumn()
 created_at: Date;
+
+@Column()
+message: string;
+
+@Column()
+delivered?: string;
 }
 
 export default RequestAccept;

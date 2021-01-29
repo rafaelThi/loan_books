@@ -52,7 +52,7 @@ routerRequestBooks.delete('/delete-request/:id', async (request, response) => {
 
 routerRequestBooks.post('/aceept', async (request, response) => {
   const {
-    id_request, id_book, id_user, id_admin,
+    id_request, id_book, id_user, id_admin, message,
   } = request.body;
   const requestAcceptRepository = getRepository(RequestsAccept);
 
@@ -61,6 +61,7 @@ routerRequestBooks.post('/aceept', async (request, response) => {
     id_book,
     id_user,
     id_admin,
+    message,
   });
 
   await requestAcceptRepository.save(requestAccept);
@@ -68,4 +69,17 @@ routerRequestBooks.post('/aceept', async (request, response) => {
   return response.json({ requestAccept });
 });
 
+routerRequestBooks.get('/requests-accept/:id_admin', async (request, response) => {
+  try {
+    const requestBookRepository = getRepository(RequestsAccept);
+    const { id_admin } = request.params;
+    const RequestAcceptIdAdmin = await requestBookRepository.find({
+      where: { id_admin },
+    });
+    return response.json(RequestAcceptIdAdmin);
+  } catch (error) {
+    alert(error);
+    throw new Error(error);
+  }
+});
 export default routerRequestBooks;

@@ -36,11 +36,21 @@ export default class RequestAccept1611858684509 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'message',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
             isNullable: false,
-
+          },
+          {
+            // unico que pode ser nulo pq sera editado pelo admin
+            name: 'delivered',
+            type: 'varchar(10)',
+            isNullable: true,
           },
         ],
       }),
