@@ -15,4 +15,11 @@ tokenAdmin.get('/token321/:token', async (request, response) => {
   }
 });
 
+tokenAdmin.delete('/delete-token321/:id_admin', async (request, response) => {
+  const userRepo = getCustomRepository(TokenAdminRepository);
+  const adminId = request.params;
+  const matchToken = await userRepo.delete(adminId);
+  return response.json({ matchToken });
+});
+
 export default tokenAdmin;
