@@ -82,4 +82,17 @@ routerRequestBooks.get('/requests-accept/:id_admin', async (request, response) =
     throw new Error(error);
   }
 });
+
+routerRequestBooks.put('/request-delivered/:id', async (request, response) => {
+  try {
+    const requestBookRepository = getRepository(RequestsAccept);
+    const { id } = request.params;
+    const { delivered } = request.body;
+    const requestDelivered = await requestBookRepository.update({ id }, { delivered });
+
+    return response.json(requestDelivered);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 export default routerRequestBooks;
