@@ -1,3 +1,4 @@
+import { hash } from 'bcryptjs';
 import { Router } from 'express';
 import { getCustomRepository, getRepository } from 'typeorm';
 import User from '../models/User';
@@ -43,6 +44,20 @@ routerUser.post('/create-user', async (request, response) => {
     return response.status(200).json({ user });
   } catch (err) {
     return response.status(400).json({ message: `${err}` });
+  }
+});
+
+routerUser.put('/reset-password-user/:id', async (request, response) => {
+  try {
+    const requestBookRepository = getRepository(User);
+    const { id } = request.params;
+    const data = request.body;
+    const password = await hash(data.password, 8);
+    const resetPassword = await requestBookRepository.update({ id }, { password });
+
+    return response.json(resetPassword);
+  } catch (error) {
+    throw new Error(error);
   }
 });
 

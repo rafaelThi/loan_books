@@ -6,12 +6,12 @@ const routerMailProvider = Router();
 // const sendmailController = new SendMailController();
 
 routerMailProvider.post('/send-mail-recover-password', async (request, response) => {
-  const { email } = request.body;
+  const { email, body } = request.body;
   // rever o corpo
   try {
     const messageMail = {
       title: 'Recuperação de senha',
-      body: `Recuperação de senha para o email: ${email}`,
+      body,
     };
 
     const mailProvider = new MailProvider();

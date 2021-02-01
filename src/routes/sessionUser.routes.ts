@@ -16,7 +16,7 @@ routerSessionUser.post('/', async (request, response) => {
 
     return response.json({ createSession });
   } catch (error) {
-    return response.json('Erro');
+    return response.json(error);
   }
 });
 
