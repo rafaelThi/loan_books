@@ -1,3 +1,4 @@
+import { hash } from 'bcryptjs';
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 import AdminRepository from '../Repositories/AdminRepository';
@@ -39,6 +40,20 @@ routerAdmin.post('/create-owners', async (request, response) => {
     return response.json({ admin });
   } catch (err) {
     return response.status(400).json({ message: `${err}` });
+  }
+});
+
+routerAdmin.put('/reset-password-admin/:id', async (request, response) => {
+  try {
+    const resetPasswordAdmin = getCustomRepository(AdminRepository);
+    const { id } = request.params;
+    const data = request.body;
+    const passwordAdmin = await hash(data.password, 8);
+    const resetPassword = await resetPasswordAdmin.update({ id }, { passwordAdmin });
+
+    return response.json(resetPassword);
+  } catch (error) {
+    throw new Error(error);
   }
 });
 
