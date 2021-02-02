@@ -95,4 +95,11 @@ routerRequestBooks.put('/request-delivered/:id', async (request, response) => {
     throw new Error(error);
   }
 });
+
+routerRequestBooks.delete('/delete-request-accept/:id', async (request, response) => {
+  const { id } = request.params;
+  const requestBookRepository = getRepository(RequestsAccept);
+  const deleteRequest = await requestBookRepository.delete(id);
+  return response.json({ deleteRequest });
+});
 export default routerRequestBooks;

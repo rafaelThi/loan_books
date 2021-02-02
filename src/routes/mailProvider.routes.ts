@@ -57,7 +57,7 @@ routerMailProvider.post('/send-mail-request-book', async (request, response) => 
 
 routerMailProvider.post('/send-mail-request-return-accept', async (request, response) => {
   const {
-    nameBook, nameUser, nameAdmin, emailUser, emailAdmin, textAccept,
+    idAccept, nameBook, nameUser, nameAdmin, emailUser, emailAdmin, textAccept,
   } = request.body;
   try {
     const messageMail = {
@@ -69,6 +69,14 @@ routerMailProvider.post('/send-mail-request-return-accept', async (request, resp
     `,
     };
 
+    const messageMailAdmin = {
+      title: 'Status da requsição do livro',
+      body: `O livro, ${nameBook}, que foi requisitado pelo ususario, ${nameUser} foi aceito por você para emprestimo.
+      ID da requisição: ${idAccept}, esse ID é usado para vc confirmar que recebeu o livro de volta.
+      Como vai ser?
+      ${textAccept}
+    `,
+    };
     const mailProvider = new MailProvider();
 
     const sendMailUser = await mailProvider.execute({
@@ -76,9 +84,9 @@ routerMailProvider.post('/send-mail-request-return-accept', async (request, resp
       messageMail,
     });
 
-    const sendMailAdmin = await mailProvider.execute({
+    const sendMailAdmin = await mailProvider.executeAdmin({
       email: emailAdmin,
-      messageMail,
+      messageMailAdmin,
     });
     return response.json({ sendMailUser, sendMailAdmin });
   } catch (error) {
