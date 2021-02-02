@@ -10,6 +10,7 @@ routerAdmin.get('/list-owner/:id', async (request, response) => {
   const adminRepository = getCustomRepository(AdminRepository);
   const { id } = request.params;
   const idOwner = await adminRepository.findOne(id);
+  delete idOwner?.passwordAdmin;
   return response.json({ idOwner });
 });
 
