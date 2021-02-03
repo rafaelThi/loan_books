@@ -5,7 +5,7 @@ import Book from './Book';
 import User from './User';
 import Admin from './Admin';
 
-@Entity('history_requests')
+@Entity('history_accept')
 class HistoryRequest {
 @PrimaryGeneratedColumn('uuid')
   id: string;
