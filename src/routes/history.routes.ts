@@ -29,7 +29,7 @@ historyAccept.post('/history-accepts', async (request, response) => {
   return response.json({ history });
 });
 
-historyAccept.get('/history-accepts/:id_admin', async (request, response) => {
+historyAccept.get('/history-all/:id_admin', async (request, response) => {
   const historyRepo = getRepository(HistoryRequest);
   const { id_admin } = request.params;
   const history_accept = await historyRepo.find({
