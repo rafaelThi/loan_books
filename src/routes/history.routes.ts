@@ -29,9 +29,11 @@ historyAccept.post('/history-accepts', async (request, response) => {
 
 historyAccept.get('/history-accepts/:id_admin', async (request, response) => {
   const historyRepo = getRepository(HistoryRequest);
-  const { id } = request.params;
-  const history_accept = await historyRepo.findOne(id);
-  return response.json({ history_accept });
+  const { id_admin } = request.params;
+  const history_accept = await historyRepo.find({
+    where: { id_admin },
+  });
+  return response.json(history_accept);
 });
 
 export default historyAccept;
