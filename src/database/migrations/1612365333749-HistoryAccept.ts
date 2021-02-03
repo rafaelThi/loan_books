@@ -26,8 +26,18 @@ export default class HistoryAccept1612365333749 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: 'name_book',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
             name: 'id_book',
             type: 'uuid',
+            isNullable: false,
+          },
+          {
+            name: 'name_user',
+            type: 'varchar',
             isNullable: false,
           },
           {

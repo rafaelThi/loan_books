@@ -16,12 +16,18 @@ class HistoryRequest {
   @Column()
   id_request: string;
 
+  @Column()
+  name_book: string;
+
 @Column()
   id_book: string;
 
 @ManyToOne(() => Book, { eager: true })
 @JoinColumn({ name: 'id_book' })
 IdBook: Book
+
+@Column()
+name_user: string;
 
 @Column()
 id_user: string;
