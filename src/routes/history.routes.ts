@@ -1,7 +1,8 @@
 /* eslint-disable array-callback-return */
 import { Router } from 'express';
-import { getRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
 import HistoryRequest from '../models/HistoryRequest';
+import HistoryRepo from '../Repositories/HistoryRepository';
 
 const historyAccept = Router();
 
@@ -39,20 +40,16 @@ historyAccept.get('/history-all/:id_admin', async (request, response) => {
 });
 
 historyAccept.get('/history-books/:id_admin/:name_book', async (request, response) => {
-  const historyRepo = getRepository(HistoryRequest);
   const { id_admin, name_book } = request.params;
-  const history_nameBook = await historyRepo.find({
-    where: { name_book, id_admin },
-  });
+  const historyRepo = getCustomRepository(HistoryRepo);
+  const history_nameBook = await historyRepo.listHistoryBookName(name_book, id_admin);
   return response.json(history_nameBook);
 });
 
 historyAccept.get('/history-user/:id_admin/:name_user', async (request, response) => {
-  const historyRepo = getRepository(HistoryRequest);
   const { id_admin, name_user } = request.params;
-  const history_nameUser = await historyRepo.find({
-    where: { name_user, id_admin },
-  });
+  const historyRepo = getCustomRepository(HistoryRepo);
+  const history_nameUser = await historyRepo.listHistoryUserName(name_user, id_admin);
   return response.json(history_nameUser);
 });
 
