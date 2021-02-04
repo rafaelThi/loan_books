@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EntityRepository, Repository } from 'typeorm';
+import { EntityRepository, Repository, Like } from 'typeorm';
 import Book from '../models/Book';
 
 @EntityRepository(Book)
@@ -12,7 +12,7 @@ class BooksRepository extends Repository<Book> {
     //     matchBooks.push(book);
     //   }
     const matchBooks = await this.find({
-      where: { name },
+      name: Like(`%${name}%`),
     });
     return matchBooks;
   }
