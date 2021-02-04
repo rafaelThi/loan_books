@@ -31,11 +31,9 @@ historyAccept.post('/history-accepts', async (request, response) => {
 });
 
 historyAccept.get('/history-all/:id_admin', async (request, response) => {
-  const historyRepo = getRepository(HistoryRequest);
+  const historyRepo = getCustomRepository(HistoryRepo);
   const { id_admin } = request.params;
-  const history_accept = await historyRepo.find({
-    where: { id_admin },
-  });
+  const history_accept = await historyRepo.listAll(id_admin);
   return response.json(history_accept);
 });
 
