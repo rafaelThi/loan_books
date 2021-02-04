@@ -19,14 +19,14 @@ class BooksRepository extends Repository<Book> {
 
   public async listBookAuthor(author:string): Promise<Book[]> {
     const matchBooks = await this.find({
-      where: { author },
+      author: Like(`%${author}%`),
     });
     return matchBooks;
   }
 
   public async listBookLanguage(language: string): Promise<Book[]> {
     const matchBooks = await this.find({
-      where: { language },
+      language: Like(`%${language}%`),
     });
     return matchBooks;
   }
