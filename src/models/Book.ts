@@ -23,7 +23,7 @@ class Book {
   @Column()
   owner_id: string;
 
-  @ManyToOne(() => Admin)
+  @ManyToOne(() => Admin, { eager: true })
   @JoinColumn({ name: 'owner_id' })
     owner: Admin;
 }
