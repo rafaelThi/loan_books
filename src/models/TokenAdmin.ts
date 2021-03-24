@@ -15,7 +15,7 @@ class TokenAdmin {
   @Column()
   id_admin: string;
 
-  @ManyToOne(() => Admin)
+  @ManyToOne(() => Admin, { eager: true })
   @JoinColumn({ name: 'id_admin' })
   IdAdmin: Admin
 }

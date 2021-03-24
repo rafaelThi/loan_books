@@ -19,6 +19,7 @@ routerAdmin.get('/list-owner/:email', async (request, response) => {
   const { email } = request.params;
   const idOwner = await adminRepository.findOne(email);
   console.log(idOwner);
+  delete idOwner?.passwordAdmin;
   return response.json(idOwner?.id);
 });
 

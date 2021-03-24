@@ -35,10 +35,7 @@ class SessionAdmin {
 
     console.log(token);
 
-    // const token = sign({}, authAdmin.jwt.secret, {
-    //   subject: admin.id,
-    //   expiresIn: authAdmin.jwt.expiresIn,
-    // });
+    delete admin.passwordAdmin;
     return ({
       admin,
       token,

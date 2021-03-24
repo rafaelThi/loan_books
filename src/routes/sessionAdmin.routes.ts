@@ -3,12 +3,20 @@ import SessionAdmin from '../services/SessionAdminService';
 
 const routerSessionAdmin = Router();
 
+interface IResp {
+  admin:{
+  emailAdmin: string;
+  passwordAdmin: string;
+  }
+  token: string;
+}
+
 routerSessionAdmin.post('/', async (request, response) => {
   try {
     const { emailAdmin, passwordAdmin } = request.body;
     const sessionAdmin = new SessionAdmin();
 
-    const createSessionAdmin = await sessionAdmin.execute({
+    const createSessionAdmin: IResp = await sessionAdmin.execute({
       emailAdmin,
       passwordAdmin,
     });
